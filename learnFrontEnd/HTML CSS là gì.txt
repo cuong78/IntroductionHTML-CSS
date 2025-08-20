@@ -1,0 +1,5 @@
+HTML (Hypertext Markup Lanaguage ) mô hình siêu văn bản ( tại sao gọi lại siêu văn bản , văn bản bình thường chỉ viết và đọc,  còn siêu văn bản có thể thao tác nhấn dô)  ( nó là cái sường cái cốt )
+
+CSS ( chính là chỉnh màu mè vô ) ( Cascading Style Sheet) Language
+
+Giống như một ngôi nhà: xây lên những viên gạch đơn thuần là HTML, khi thêm lớp sơn vào, sơn đó chính là CSS 
