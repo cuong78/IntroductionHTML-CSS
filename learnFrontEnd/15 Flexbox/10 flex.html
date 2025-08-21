@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox flex shorthand</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 2.8rem;
+        }
+        
+        h2 {
+            color: #3498db;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin: 20px 0 15px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .intro {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .examples {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .example {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .example:hover {
+            transform: translateY(-5px);
+        }
+        
+        .flex-container {
+            display: flex;
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 2px dashed #3498db;
+            gap: 10px;
+            height: 200px;
+        }
+        
+        .item {
+            padding: 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .custom-flex {
+            flex: 1 0 200px;
+            background-color: #e74c3c;
+        }
+        
+        .auto-flex {
+            flex: auto;
+            background-color: #3498db;
+        }
+        
+        .initial-flex {
+            flex: initial;
+            background-color: #2ecc71;
+            width: 200px;
+        }
+        
+        .none-flex {
+            flex: none;
+            background-color: #f39c12;
+            width: 200px;
+        }
+        
+        .value-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .code {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 25px 0;
+            overflow-x: auto;
+            font-size: 1.1rem;
+        }
+        
+        .visual-demo {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 40px 0;
+        }
+        
+        .properties {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+        
+        .property {
+            flex: 1;
+            min-width: 280px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .property h3 {
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+        
+        .note {
+            background-color: #fff8e1;
+            padding: 25px;
+            border-left: 6px solid #ffc107;
+            margin: 40px 0;
+            border-radius: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            color: #7f8c8d;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .comparison-table th {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .comparison-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        @media (max-width: 768px) {
+            .properties {
+                flex-direction: column;
+            }
+            
+            .property {
+                min-width: 100%;
+            }
+            
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Thuộc tính flex shorthand trong Flexbox</h1>
+            <p>Cú pháp viết tắt cho flex-grow, flex-shrink và flex-basis</p>
+        </header>
+        
+        <div class="intro">
+            <p>Thuộc tính <strong>flex</strong> là cách viết tắt cho ba thuộc tính: <code>flex-grow</code>, <code>flex-shrink</code> và <code>flex-basis</code>.</p>
+        </div>
+        
+        <div class="examples">
+            <div class="example">
+                <h2>flex: 1 0 200px (Grow: 1, Shrink: 0, Basis: 200px)</h2>
+                <p>Item có thể phát triển (grow), không thể co lại (shrink), và có kích thước cơ sở là 200px.</p>
+                
+                <div class="flex-container">
+                    <div class="item custom-flex">
+                        <div class="value-display">flex: 1 0 200px</div>
+                        <div class="label">Có thể phát triển, không co lại</div>
+                    </div>
+                    <div class="item" style="background-color: #9b59b6; width: 100px;">
+                        <div class="value-display">Item cố định</div>
+                        <div class="label">Width: 100px</div>
+                    </div>
+                </div>
+                
+                <div class="code">
+                    .item {<br>
+                    &nbsp;&nbsp;flex: 1 0 200px;<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="example">
+                <h2>flex: auto (tương đương 1 1 auto)</h2>
+                <p>Item có thể phát triển và co lại, kích thước dựa trên nội dung.</p>
+                
+                <div class="flex-container">
+                    <div class="item auto-flex">
+                        <div class="value-display">flex: auto</div>
+                        <div class="label">Tương đương 1 1 auto</div>
+                    </div>
+                    <div class="item" style="background-color: #9b59b6; flex: 2 1 auto;">
+                        <div class="value-display">flex: 2 1 auto</div>
+                        <div class="label">Phát triển gấp đôi</div>
+                    </div>
+                </div>
+                
+                <div class="code">
+                    .item {<br>
+                    &nbsp;&nbsp;flex: auto; /* 1 1 auto */<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="example">
+                <h2>flex: initial (tương đương 0 1 auto)</h2>
+                <p>Item không phát triển nhưng có thể co lại, kích thước dựa trên nội dung.</p>
+                
+                <div class="flex-container">
+                    <div class="item initial-flex">
+                        <div class="value-display">flex: initial</div>
+                        <div class="label">Tương đương 0 1 auto</div>
+                    </div>
+                    <div class="item" style="background-color: #9b59b6; flex: 1 1 auto;">
+                        <div class="value-display">flex: 1 1 auto</div>
+                        <div class="label">Có thể phát triển</div>
+                    </div>
+                </div>
+                
+                <div class="code">
+                    .item {<br>
+                    &nbsp;&nbsp;flex: initial; /* 0 1 auto */<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="example">
+                <h2>flex: none (tương đương 0 0 auto)</h2>
+                <p>Item không phát triển và không co lại, kích thước dựa trên nội dung.</p>
+                
+                <div class="flex-container">
+                    <div class="item none-flex">
+                        <div class="value-display">flex: none</div>
+                        <div class="label">Tương đương 0 0 auto</div>
+                    </div>
+                    <div class="item" style="background-color: #9b59b6; flex: 1 1 auto;">
+                        <div class="value-display">flex: 1 1 auto</div>
+                        <div class="label">Có thể phát triển</div>
+                    </div>
+                </div>
+                
+                <div class="code">
+                    .item {<br>
+                    &nbsp;&nbsp;flex: none; /* 0 0 auto */<br>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <div class="note">
+            <h3><i class="fas fa-lightbulb"></i> Giá trị mặc định</h3>
+            <p>Khi sử dụng <code>display: flex</code>, các items mặc định có:</p>
+            <p><code>flex: 0 1 auto</code> (không phát triển, có thể co lại, kích thước tự động)</p>
+        </div>
+        
+        <div class="visual-demo">
+            <h2>Bảng so sánh các giá trị flex shorthand</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Giá trị</th>
+                        <th>Tương đương</th>
+                        <th>Mô tả</th>
+                        <th>Ứng dụng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>flex: initial</code></td>
+                        <td><code>0 1 auto</code></td>
+                        <td>Không phát triển, có thể co lại</td>
+                        <td>Items có kích thước dựa trên nội dung</td>
+                    </tr>
+                    <tr>
+                        <td><code>flex: auto</code></td>
+                        <td><code>1 1 auto</code></td>
+                        <td>Có thể phát triển và co lại</td>
+                        <td>Items linh hoạt, chiếm không gian thừa</td>
+                    </tr>
+                    <tr>
+                        <td><code>flex: none</code></td>
+                        <td><code>0 0 auto</code></td>
+                        <td>Không phát triển, không co lại</td>
+                        <td>Items có kích thước cố định</td>
+                    </tr>
+                    <tr>
+                        <td><code>flex: &lt;number&gt;</code></td>
+                        <td><code>&lt;number&gt; 1 0px</code></td>
+                        <td>Phát triển theo tỷ lệ, co lại được</td>
+                        <td>Items với tỷ lệ phát triển cụ thể</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="properties">
+            <div class="property">
+                <h3><i class="fas fa-check-circle"></i> Ưu điểm</h3>
+                <ul>
+                    <li>Viết ngắn gọn, dễ bảo trì</li>
+                    <li>Kết hợp cả ba thuộc tính trong một dòng</li>
+                    <li>Dễ dàng kiểm soát layout flexbox</li>
+                </ul>
+            </div>
+            
+            <div class="property">
+                <h3><i class="fas fa-exclamation-circle"></i> Lưu ý quan trọng</h3>
+                <ul>
+                    <li>Thứ tự giá trị: grow, shrink, basis</li>
+                    <li>Có thể bỏ qua shrink và basis nếu không cần</li>
+                    <li>Giá trị đơn lẻ được hiểu là grow (nếu là số) hoặc basis (nếu có đơn vị)</li>
+                </ul>
+            </div>
+            
+            <div class="property">
+                <h3><i class="fas fa-lightbulb"></i> Mẹo sử dụng</h3>
+                <ul>
+                    <li>Sử dụng <code>flex: 1</code> cho items chiếm không gian bằng nhau</li>
+                    <li>Sử dụng <code>flex: auto</code> cho items linh hoạt</li>
+                    <li>Sử dụng <code>flex: none</code> cho items có kích thước cố định</li>
+                    <li>Sử dụng <code>flex: 0 0 &lt;length&gt;</code> cho items với kích thước cố định</li>
+                </ul>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 - Hướng dẫn Flexbox flex shorthand</p>
+        </footer>
+    </div>
+</body>
+</html>

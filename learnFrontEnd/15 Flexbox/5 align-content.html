@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox align-content</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 2.8rem;
+        }
+        
+        h2 {
+            color: #3498db;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin: 20px 0 15px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .intro {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .examples {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .example {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .example:hover {
+            transform: translateY(-5px);
+        }
+        
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            height: 400px;
+            border: 2px dashed #3498db;
+        }
+        
+        .item {
+            padding: 25px;
+            margin: 8px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 150px;
+            background-color: #3498db;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease;
+        }
+        
+        .item:hover {
+            transform: scale(1.05);
+        }
+        
+        .flex-start {
+            align-content: flex-start;
+        }
+        
+        .flex-end {
+            align-content: flex-end;
+        }
+        
+        .center {
+            align-content: center;
+        }
+        
+        .space-between {
+            align-content: space-between;
+        }
+        
+        .space-around {
+            align-content: space-around;
+        }
+        
+        .stretch {
+            align-content: stretch;
+        }
+        
+        .stretch .item {
+            height: auto;
+        }
+        
+        .code {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 25px 0;
+            overflow-x: auto;
+            font-size: 1.1rem;
+        }
+        
+        .visual-demo {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 40px 0;
+        }
+        
+        .properties {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+        
+        .property {
+            flex: 1;
+            min-width: 280px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .property:hover {
+            transform: translateY(-5px);
+        }
+        
+        .property h3 {
+            color: #e74c3c;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .property i {
+            font-size: 1.5rem;
+        }
+        
+        .note {
+            background-color: #fff8e1;
+            padding: 25px;
+            border-left: 6px solid #ffc107;
+            margin: 40px 0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            color: #7f8c8d;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .axis-demo {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .axis {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            position: relative;
+            margin: 40px 0;
+        }
+        
+        .axis::before {
+            content: 'Cross Axis';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2c3e50;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .axis::after {
+            content: '→';
+            position: absolute;
+            right: -25px;
+            top: -15px;
+            font-size: 2rem;
+            color: #2c3e50;
+        }
+        
+        .info-box {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #3498db;
+        }
+        
+        @media (max-width: 768px) {
+            .properties {
+                flex-direction: column;
+            }
+            
+            .property {
+                min-width: 100%;
+            }
+            
+            .flex-container {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Thuộc tính align-content trong Flexbox</h1>
+            <p>Căn chỉnh các dòng items dọc theo trục phụ của flex container khi có nhiều dòng</p>
+        </header>
+        
+        <div class="intro">
+            <p>Thuộc tính <strong>align-content</strong> xác định cách trình duyệt phân phối không gian giữa và xung quanh các dòng items dọc theo trục phụ (cross axis) của flex container khi có nhiều dòng.</p>
+        </div>
+        
+        <div class="info-box">
+            <h3><i class="fas fa-info-circle"></i> Lưu ý quan trọng</h3>
+            <p>Thuộc tính <strong>align-content</strong> chỉ có tác dụng khi flex container có nhiều dòng (sử dụng <code>flex-wrap: wrap</code> hoặc <code>wrap-reverse</code>) và có không gian thừa trên trục phụ.</p>
+        </div>
+        
+        <div class="axis-demo">
+            <div class="axis"></div>
+        </div>
+        
+        <div class="examples">
+            <div class="example">
+                <h2>align-content: stretch (mặc định)</h2>
+                <p>Các dòng items được kéo dãn để lấp đầy không gian còn lại trên trục phụ.</p>
+                
+                <div class="flex-container stretch">
+                    <div class="item">1</div>
+                    <div class="item">2</div>
+                    <div class="item">3</div>
+                    <div class="item">4</div>
+                    <div class="item">5</div>
+                    <div class="item">6</div>
+                    <div class="item">7</div>
+                    <div class="item">8</div>
+                </div>
+                
+                <div class="code">
+                    .container {<br>
+                    &nbsp;&nbsp;display: flex;<br>
+                    &nbsp;&nbsp;flex-wrap: wrap;<br>
+                    &nbsp;&nbsp;align-content: stretch;<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="example">
+                <h2>align-content: flex-start</h2>
+                <p>Các dòng items được nhóm lại ở điểm bắt đầu của trục phụ.</p>
+                
+                <div class="flex-container flex-start">
+                    <div class="item">1</div>
+                    <div class="item">2</div>
+                    <div class="item">3</div>
+                    <div class="item">4</div>
+                    <div class="item">5</div>
+                    <div class="item">6</div>
+                    <div class="item">7</div>
+                    <div class="item">8</div>
+                </div>
+                
+                <div class="code">
+                    .container {<br>
+                    &nbsp;&nbsp;display: flex;<br>
+                    &nbsp;&nbsp;flex-wrap: wrap;<br>
+                    &nbsp;&nbsp;align-content: flex-start;<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="example">
+                <h2>align-content: flex-end</h2>
+                <p>Các dòng items được nhóm lại ở điểm kết thúc của trục phụ.</p>
+                
+                <div class="flex-container flex-end">
+                    <div class="item">1</div>
+                    <div class="item">2</div>
+                    <div class="item">3</div>
+                    <div class="item">4</div>
+                    <div class="item">5</div>
+                    <div class="item">6</div>
+                    <div class="item">7</div>
+                    <div class="item">8</div>
+                </div>
+                
+                <div class="code">
+                    .container {<br>
+                    &nbsp;&nbsp;display: flex;<br>
+                    &nbsp;&nbsp;flex-wrap: wrap;<br>
+                    &nbsp;&nbsp;align-content: flex-end;<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="example">
+                <h2>align-content: center</h2>
+                <p>Các dòng items được căn giữa dọc theo trục phụ.</p>
+                
+                <div class="flex-container center">
+                    <div class="item">1</div>
+                    <div class="item">2</div>
+                    <div class="item">3</div>
+                    <div class="item">4</div>
+                    <div class="item">5</div>
+                    <div class="item">6</div>
+                    <div class="item">7</div>
+                    <div class="item">8</div>
+                </div>
+                
+                <div class="code">
+                    .container {<br>
+                    &nbsp;&nbsp;display: flex;<br>
+                    &nbsp;&nbsp;flex-wrap: wrap;<br>
+                    &nbsp;&nbsp;align-content: center;<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="example">
+                <h2>align-content: space-between</h2>
+                <p>Các dòng items được phân bố đều nhau trên trục phụ, dòng đầu ở điểm bắt đầu, dòng cuối ở điểm kết thúc.</p>
+                
+                <div class="flex-container space-between">
+                    <div class="item">1</div>
+                    <div class="item">2</div>
+                    <div class="item">3</div>
+                    <div class="item">4</div>
+                    <div class="item">5</div>
+                    <div class="item">6</div>
+                    <div class="item">7</div>
+                    <div class="item">8</div>
+                </div>
+                
+                <div class="code">
+                    .container {<br>
+                    &nbsp;&nbsp;display: flex;<br>
+                    &nbsp;&nbsp;flex-wrap: wrap;<br>
+                    &nbsp;&nbsp;align-content: space-between;<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="example">
+                <h2>align-content: space-around</h2>
+                <p>Các dòng items được phân bố đều nhau với khoảng trống xung quanh mỗi dòng. Khoảng trống ở hai đầu bằng một nửa khoảng trống giữa các dòng.</p>
+                
+                <div class="flex-container space-around">
+                    <div class="item">1</div>
+                    <div class="item">2</div>
+                    <div class="item">3</div>
+                    <div class="item">4</div>
+                    <div class="item">5</div>
+                    <div class="item">6</div>
+                    <div class="item">7</div>
+                    <div class="item">8</div>
+                </div>
+                
+                <div class="code">
+                    .container {<br>
+                    &nbsp;&nbsp;display: flex;<br>
+                    &nbsp;&nbsp;flex-wrap: wrap;<br>
+                    &nbsp;&nbsp;align-content: space-around;<br>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <div class="note">
+            <h3><i class="fas fa-lightbulb"></i> Mẹo sử dụng align-content</h3>
+            <p>Thuộc tính <strong>align-content</strong> chỉ hoạt động khi:</p>
+            <ul>
+                <li>Flex container có <code>flex-wrap: wrap</code> hoặc <code>wrap-reverse</code></li>
+                <li>Có nhiều hơn một dòng items</li>
+                <li>Container có chiều cao cố định (với flex-direction: row) hoặc chiều rộng cố định (với flex-direction: column)</li>
+            </ul>
+        </div>
+        
+        <div class="visual-demo">
+            <h2>Ứng dụng thực tế</h2>
+            
+            <h3>Gallery ảnh với space-between</h3>
+            <div class="flex-container space-between">
+                <div class="item"><i class="fas fa-image"></i></div>
+                <div class="item"><i class="fas fa-image"></i></div>
+                <div class="item"><i class="fas fa-image"></i></div>
+                <div class="item"><i class="fas fa-image"></i></div>
+                <div class="item"><i class="fas fa-image"></i></div>
+                <div class="item"><i class="fas fa-image"></i></div>
+            </div>
+            
+            <h3>Form với multiple lines và center</h3>
+            <div class="flex-container center">
+                <div class="item">Tên</div>
+                <div class="item">Email</div>
+                <div class="item">Mật khẩu</div>
+                <div class="item">Xác nhận</div>
+                <div class="item">Điện thoại</div>
+                <div class="item">Địa chỉ</div>
+            </div>
+        </div>
+        
+        <div class="properties">
+            <div class="property">
+                <h3><i class="fas fa-lightbulb"></i> Khi nào sử dụng</h3>
+                <ul>
+                    <li>Khi bạn có một grid nhiều dòng</li>
+                    <li>Khi bạn muốn kiểm soát khoảng cách giữa các dòng</li>
+                    <li>Khi bạn muốn căn chỉnh nhiều dòng items theo trục phụ</li>
+                </ul>
+            </div>
+            
+            <div class="property">
+                <h3><i class="fas fa-exclamation-circle"></i> Lưu ý quan trọng</h3>
+                <ul>
+                    <li>Không hoạt động với flex container một dòng</li>
+                    <li>Chỉ hoạt động khi có không gian thừa trên trục phụ</li>
+                    <li>Hướng trục phụ phụ thuộc vào flex-direction</li>
+                </ul>
+            </div>
+            
+            <div class="property">
+                <h3><i class="fas fa-arrows-alt-v"></i> Khác với align-items</h3>
+                <ul>
+                    <li>align-items: căn chỉnh items trong một dòng</li>
+                    <li>align-content: căn chỉnh các dòng items trong container</li>
+                    <li>align-content ghi đè align-items khi có nhiều dòng</li>
+                </ul>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 - Hướng dẫn Flexbox align-content</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox Direction - Row và Column</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            color: #3498db;
+            margin: 25px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin: 20px 0 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .intro {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .comparison {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .example {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            transition: transform 0.3s ease;
+        }
+        
+        .example:hover {
+            transform: translateY(-5px);
+        }
+        
+        .flex-container {
+            display: flex;
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            min-height: 200px;
+        }
+        
+        .row-direction {
+            flex-direction: row;
+            border: 2px solid #3498db;
+        }
+        
+        .column-direction {
+            flex-direction: column;
+            border: 2px solid #2ecc71;
+        }
+        
+        .item {
+            padding: 20px;
+            margin: 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 60px;
+        }
+        
+        .row-direction .item {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .column-direction .item {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .code {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .visual-demo {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin: 40px 0;
+        }
+        
+        .properties {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        
+        .property {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .property h3 {
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        
+        .note {
+            background-color: #fff8e1;
+            padding: 20px;
+            border-left: 4px solid #ffc107;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison {
+                flex-direction: column;
+            }
+            
+            .example {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Flexbox: flex-direction row và column</h1>
+            <p>Hiểu rõ sự khác biệt giữa hai hướng bố cục cơ bản trong Flexbox</p>
+        </header>
+        
+        <div class="intro">
+            <p>Thuộc tính <strong>flex-direction</strong> xác định hướng các phần tử con (flex items) được sắp xếp bên trong container. Hai giá trị phổ biến nhất là <strong>row</strong> (hàng ngang) và <strong>column</strong> (hàng dọc).</p>
+        </div>
+        
+        <div class="comparison">
+            <div class="example">
+                <h2>flex-direction: row</h2>
+                <p>Các items được sắp xếp theo hàng ngang (từ trái sang phải).</p>
+                
+                <div class="flex-container row-direction">
+                    <div class="item">1</div>
+                    <div class="item">2</div>
+                    <div class="item">3</div>
+                </div>
+                
+                <div class="code">
+                    .container {<br>
+                    &nbsp;&nbsp;display: flex;<br>
+                    &nbsp;&nbsp;flex-direction: row;<br>
+                    }
+                </div>
+                
+                <h3>Đặc điểm:</h3>
+                <ul>
+                    <li>Trục chính (main axis) chạy ngang</li>
+                    <li>Các item xếp theo hàng ngang</li>
+                    <li>Đây là giá trị mặc định của flexbox</li>
+                </ul>
+            </div>
+            
+            <div class="example">
+                <h2>flex-direction: column</h2>
+                <p>Các items được sắp xếp theo hàng dọc (từ trên xuống dưới).</p>
+                
+                <div class="flex-container column-direction">
+                    <div class="item">1</div>
+                    <div class="item">2</div>
+                    <div class="item">3</div>
+                </div>
+                
+                <div class="code">
+                    .container {<br>
+                    &nbsp;&nbsp;display: flex;<br>
+                    &nbsp;&nbsp;flex-direction: column;<br>
+                    }
+                </div>
+                
+                <h3>Đặc điểm:</h3>
+                <ul>
+                    <li>Trục chính (main axis) chạy dọc</li>
+                    <li>Các item xếp theo cột dọc</li>
+                    <li>Hữu ích cho bố cục di động</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="note">
+            <h3>Lưu ý quan trọng:</h3>
+            <p>Khi thay đổi flex-direction, trục chính (main axis) và trục phụ (cross axis) sẽ thay đổi theo:</p>
+            <ul>
+                <li>Với <strong>row</strong>: trục chính ngang, trục phụ dọc</li>
+                <li>Với <strong>column</strong>: trục chính dọc, trục phụ ngang</li>
+            </ul>
+            <p>Điều này ảnh hưởng đến cách hoạt động của các thuộc tính như justify-content và align-items.</p>
+        </div>
+        
+        <div class="visual-demo">
+            <h2>Minh họa ứng dụng thực tế</h2>
+            
+            <h3>Menu ngang (row)</h3>
+            <div class="flex-container row-direction">
+                <div class="item">Trang chủ</div>
+                <div class="item">Sản phẩm</div>
+                <div class="item">Dịch vụ</div>
+                <div class="item">Liên hệ</div>
+            </div>
+            
+            <h3>Sidebar dọc (column)</h3>
+            <div class="flex-container column-direction" style="max-width: 200px;">
+                <div class="item">Danh mục 1</div>
+                <div class="item">Danh mục 2</div>
+                <div class="item">Danh mục 3</div>
+                <div class="item">Danh mục 4</div>
+            </div>
+        </div>
+        
+        <div class="properties">
+            <div class="property">
+                <h3>Các giá trị khác của flex-direction</h3>
+                <ul>
+                    <li><strong>row-reverse</strong>: hàng ngang nhưng đảo ngược thứ tự</li>
+                    <li><strong>column-reverse</strong>: hàng dọc nhưng đảo ngược thứ tự</li>
+                </ul>
+            </div>
+            
+            <div class="property">
+                <h3>Thuộc tính liên quan</h3>
+                <ul>
+                    <li>justify-content: căn chỉnh trên trục chính</li>
+                    <li>align-items: căn chỉnh trên trục phụ</li>
+                    <li>flex-wrap: điều khiển xuống dòng</li>
+                </ul>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 - Hướng dẫn Flexbox</p>
+        </footer>
+    </div>
+</body>
+</html>

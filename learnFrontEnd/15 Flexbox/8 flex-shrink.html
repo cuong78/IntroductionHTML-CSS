@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox flex-shrink</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 2.8rem;
+        }
+        
+        h2 {
+            color: #3498db;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin: 20px 0 15px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .intro {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .examples {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .example {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .example:hover {
+            transform: translateY(-5px);
+        }
+        
+        .flex-container {
+            display: flex;
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 2px dashed #3498db;
+            gap: 10px;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .constrained-container {
+            width: 600px;
+            max-width: 100%;
+            margin: 25px 0;
+        }
+        
+        .item {
+            padding: 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-width: 180px;
+            background-color: #3498db;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            text-align: center;
+            flex-basis: 200px;
+        }
+        
+        .item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .shrink-0 {
+            flex-shrink: 0;
+            background-color: #e74c3c;
+        }
+        
+        .shrink-1 {
+            flex-shrink: 1;
+            background-color: #3498db;
+        }
+        
+        .shrink-2 {
+            flex-shrink: 2;
+            background-color: #2ecc71;
+        }
+        
+        .shrink-3 {
+            flex-shrink: 3;
+            background-color: #f39c12;
+        }
+        
+        .value-display {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .size-info {
+            font-size: 0.8rem;
+            margin-top: 8px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+        
+        .code {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 25px 0;
+            overflow-x: auto;
+            font-size: 1.1rem;
+        }
+        
+        .visual-demo {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 40px 0;
+        }
+        
+        .properties {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+        
+        .property {
+            flex: 1;
+            min-width: 280px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .property:hover {
+            transform: translateY(-5px);
+        }
+        
+        .property h3 {
+            color: #e74c3c;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .property i {
+            font-size: 1.5rem;
+        }
+        
+        .note {
+            background-color: #fff8e1;
+            padding: 25px;
+            border-left: 6px solid #ffc107;
+            margin: 40px 0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            color: #7f8c8d;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .interactive-demo {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 120px;
+        }
+        
+        .control-group label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .control-group input {
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .info-box {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #3498db;
+        }
+        
+        .calculation {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #2ecc71;
+        }
+        
+        .resize-handle {
+            width: 100%;
+            height: 20px;
+            background-color: #3498db;
+            border-radius: 4px;
+            margin: 20px 0;
+            cursor: col-resize;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .properties {
+                flex-direction: column;
+            }
+            
+            .property {
+                min-width: 100%;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .constrained-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Thuộc tính flex-shrink trong Flexbox</h1>
+            <p>Xác định khả năng một item có thể co lại khi không gian không đủ</p>
+        </header>
+        
+        <div class="intro">
+            <p>Thuộc tính <strong>flex-shrink</strong> xác định tỷ lệ không gian mà một flex item có thể co lại so với các items khác trong container khi không gian không đủ.</p>
+        </div>
+        
+        <div class="info-box">
+            <h3><i class="fas fa-info-circle"></i> Giá trị mặc định: 1</h3>
+            <p>Khi <code>flex-shrink: 1</code>, item có thể co lại để vừa với container khi không gian không đủ.</p>
+        </div>
+        
+        <div class="examples">
+            <div class="example">
+                <h2>flex-shrink: 0 (Không co lại)</h2>
+                <p>Items với flex-shrink: 0 sẽ không co lại, có thể gây tràn container.</p>
+                
+                <div class="flex-container constrained-container">
+                    <div class="item shrink-0">
+                        <div class="value-display">0</div>
+                        <div class="label">flex-shrink</div>
+                        <div class="size-info">200px basis</div>
+                    </div>
+                    <div class="item shrink-0">
+                        <div class="value-display">0</div>
+                        <div class="label">flex-shrink</div>
+                        <div class="size-info">200px basis</div>
+                    </div>
+                    <div class="item shrink-0">
+                        <div class="value-display">0</div>
+                        <div class="label">flex-shrink</div>
+                        <div class="size-info">200px basis</div>
+                    </div>
+                </div>
+                
+                <div class="code">
+                    .item {<br>
+                    &nbsp;&nbsp;flex-shrink: 0; /* Không co lại */<br>
+                    &nbsp;&nbsp;flex-basis: 200px; /* Kích thước cơ sở */<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="example">
+                <h2>flex-shrink: 1 (Mặc định - Co lại đồng đều)</h2>
+                <p>Tất cả items co lại đồng đều để vừa với container.</p>
+                
+                <div class="flex-container constrained-container">
+                    <div class="item shrink-1">
+                        <div class="value-display">1</div>
+                        <div class="label">flex-shrink</div>
+                        <div class="size-info">200px basis</div>
+                    </div>
+                    <div class="item shrink-1">
+                        <div class="value-display">1</div>
+                        <div class="label">flex-shrink</div>
+                        <div class="size-info">200px basis</div>
+                    </div>
+                    <div class="item shrink-1">
+                        <div class="value-display">1</div>
+                        <div class="label">flex-shrink</div>
+                        <div class="size-info">200px basis</div>
+                    </div>
+                </div>
+                
+                <div class="code">
+                    .item {<br>
+                    &nbsp;&nbsp;flex-shrink: 1; /* Mặc định */<br>
+                    &nbsp;&nbsp;flex-basis: 200px; /* Kích thước cơ sở */<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="example">
+                <h2>flex-shrink: Tỷ lệ khác nhau (1, 2, 3)</h2>
+                <p>Items co lại theo tỷ lệ khác nhau dựa trên giá trị flex-shrink.</p>
+                
+                <div class="flex-container constrained-container">
+                    <div class="item shrink-1">
+                        <div class="value-display">1</div>
+                        <div class="label">flex-shrink</div>
+                        <div class="size-info">200px basis</div>
+                    </div>
+                    <div class="item shrink-2">
+                        <div class="value-display">2</div>
+                        <div class="label">flex-shrink</div>
+                        <div class="size-info">200px basis</div>
+                    </div>
+                    <div class="item shrink-3">
+                        <div class="value-display">3</div>
+                        <div class="label">flex-shrink</div>
+                        <div class="size-info">200px basis</div>
+                    </div>
+                </div>
+                
+                <div class="code">
+                    .item-1 { flex-shrink: 1; }<br>
+                    .item-2 { flex-shrink: 2; }<br>
+                    .item-3 { flex-shrink: 3; }<br>
+                    .item { flex-basis: 200px; }
+                </div>
+                
+                <div class="calculation">
+                    <h4><i class="fas fa-calculator"></i> Cách tính không gian cần co lại:</h4>
+                    <p>Tổng flex-shrink = 1 + 2 + 3 = 6</p>
+                    <p>Item 1 co lại: 1/6 tổng không gian thiếu</p>
+                    <p>Item 2 co lại: 2/6 tổng không gian thiếu</p>
+                    <p>Item 3 co lại: 3/6 tổng không gian thiếu</p>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h2>Kết hợp flex-shrink: 0 và flex-shrink: 1</h2>
+                <p>Chỉ những items có flex-shrink > 0 mới co lại khi không gian không đủ.</p>
+                
+                <div class="flex-container constrained-container">
+                    <div class="item shrink-0">
+                        <div class="value-display">0</div>
+                        <div class="label">flex-shrink</div>
+                        <div class="size-info">200px basis</div>
+                    </div>
+                    <div class="item shrink-1">
+                        <div class="value-display">1</div>
+                        <div class="label">flex-shrink</div>
+                        <div class="size-info">200px basis</div>
+                    </div>
+                    <div class="item shrink-0">
+                        <div class="value-display">0</div>
+                        <div class="label">flex-shrink</div>
+                        <div class="size-info">200px basis</div>
+                    </div>
+                </div>
+                
+                <div class="code">
+                    .item-fixed { flex-shrink: 0; }<br>
+                    .item-flexible { flex-shrink: 1; }<br>
+                    .item { flex-basis: 200px; }
+                </div>
+            </div>
+        </div>
+        
+        <div class="note">
+            <h3><i class="fas fa-lightbulb"></i> Cách thức hoạt động của flex-shrink</h3>
+            <p>Thuộc tính <strong>flex-shrink</strong> hoạt động theo các bước sau:</p>
+            <ol>
+                <li>Tính tổng không gian thiếu trong container (khi items vượt quá kích thước container)</li>
+                <li>Tính tổng các giá trị flex-shrink của tất cả items</li>
+                <li>Chia không gian thiếu theo tỷ lệ flex-shrink</li>
+                <li>Items co lại theo tỷ lệ được tính toán</li>
+            </ol>
+            <p><strong>Công thức:</strong> Không gian item co lại = (flex-shrink của item / tổng flex-shrink) × không gian thiếu</p>
+        </div>
+        
+        <div class="visual-demo">
+            <h2>Ứng dụng thực tế</h2>
+            
+            <h3>Layout với sidebar cố định và content co giãn</h3>
+            <div class="flex-container constrained-container">
+                <div class="item shrink-0" style="min-width: 150px; background-color: #e74c3c;">
+                    <div class="value-display">0</div>
+                    <div class="label">Sidebar cố định</div>
+                </div>
+                <div class="item shrink-1" style="background-color: #3498db;">
+                    <div class="value-display">1</div>
+                    <div class="label">Content co giãn</div>
+                </div>
+            </div>
+            
+            <h3>Navigation bar với logo cố định và menu items co giãn</h3>
+            <div class="flex-container constrained-container">
+                <div class="item shrink-0" style="min-width: 100px; background-color: #e74c3c;">
+                    <div class="value-display">0</div>
+                    <div class="label">Logo</div>
+                </div>
+                <div class="item shrink-1" style="background-color: #3498db;">
+                    <div class="value-display">1</div>
+                    <div class="label">Menu 1</div>
+                </div>
+                <div class="item shrink-1" style="background-color: #2ecc71;">
+                    <div class="value-display">1</div>
+                    <div class="label">Menu 2</div>
+                </div>
+                <div class="item shrink-1" style="background-color: #f39c12;">
+                    <div class="value-display">1</div>
+                    <div class="label">Menu 3</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="properties">
+            <div class="property">
+                <h3><i class="fas fa-check-circle"></i> Ưu điểm</h3>
+                <ul>
+                    <li>Đảm bảo layout không bị phá vỡ khi không gian hạn chế</li>
+                    <li>Kiểm soát được items nào nên ưu tiên giữ nguyên kích thước</li>
+                    <li>Layout responsive linh hoạt trên nhiều thiết bị</li>
+                    <li>Kết hợp tốt với flex-grow và flex-basis</li>
+                </ul>
+            </div>
+            
+            <div class="property">
+                <h3><i class="fas fa-exclamation-circle"></i> Lưu ý quan trọng</h3>
+                <ul>
+                    <li>Chỉ ảnh hưởng khi không gian không đủ chứa các items</li>
+                    <li>Giá trị không thể âm</li>
+                    <li>Số thập phân được chấp nhận (0.5, 1.5, ...)</li>
+                    <li>Kết hợp với flex-basis để kiểm soát kích thước cơ sở</li>
+                </ul>
+            </div>
+            
+            <div class="property">
+                <h3><i class="fas fa-lightbulb"></i> Mẹo sử dụng</h3>
+                <ul>
+                    <li>Dùng flex-shrink: 0 cho các thành phần quan trọng cần giữ nguyên kích thước</li>
+                    <li>Dùng flex-shrink: 1 cho các thành phần có thể co lại khi cần thiết</li>
+                    <li>Dùng giá trị lớn hơn 1 cho các thành phần có độ ưu tiên co lại cao</li>
+                    <li>Kết hợp với media queries cho responsive design</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="interactive-demo">
+            <h2>Demo tương tác - Thay đổi kích thước container</h2>
+            <p>Kéo thanh dưới đây để thay đổi kích thước container và quan sát cách các items co giãn:</p>
+            
+            <div class="resize-handle" id="resizeHandle">
+                <i class="fas fa-arrows-alt-h"></i> Kéo để thay đổi kích thước
+            </div>
+            
+            <div class="flex-container" id="interactiveContainer" style="width: 100%;">
+                <div class="item shrink-0">
+                    <div class="value-display">0</div>
+                    <div class="label">Không co</div>
+                    <div class="size-info">200px basis</div>
+                </div>
+                <div class="item shrink-1">
+                    <div class="value-display">1</div>
+                    <div class="label">Co bình thường</div>
+                    <div class="size-info">200px basis</div>
+                </div>
+                <div class="item shrink-2">
+                    <div class="value-display">2</div>
+                    <div class="label">Co nhiều</div>
+                    <div class="size-info">200px basis</div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 - Hướng dẫn Flexbox flex-shrink</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tương tác kéo để thay đổi kích thước container
+        const resizeHandle = document.getElementById('resizeHandle');
+        const interactiveContainer = document.getElementById('interactiveContainer');
+        let isResizing = false;
+        
+        resizeHandle.addEventListener('mousedown', function(e) {
+            isResizing = true;
+            document.body.style.cursor = 'col-resize';
+            e.preventDefault();
+        });
+        
+        document.addEventListener('mousemove', function(e) {
+            if (!isResizing) return;
+            
+            const containerRect = interactiveContainer.getBoundingClientRect();
+            const newWidth = e.clientX - containerRect.left;
+            
+            if (newWidth > 300 && newWidth < 1000) {
+                interactiveContainer.style.width = newWidth + 'px';
+            }
+        });
+        
+        document.addEventListener('mouseup', function() {
+            isResizing = false;
+            document.body.style.cursor = 'default';
+        });
+        
+        // Chặn kéo ngoài phạm vi
+        document.addEventListener('mouseleave', function() {
+            isResizing = false;
+            document.body.style.cursor = 'default';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox flex-grow</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 2.8rem;
+        }
+        
+        h2 {
+            color: #3498db;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin: 20px 0 15px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .intro {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .examples {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .example {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            transition: transform 0.3s ease;
+        }
+        
+        .example:hover {
+            transform: translateY(-5px);
+        }
+        
+        .flex-container {
+            display: flex;
+            background-color: rgba(52, 152, 219, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 2px dashed #3498db;
+            gap: 10px;
+        }
+        
+        .item {
+            padding: 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-width: 80px;
+            background-color: #3498db;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .grow-0 {
+            flex-grow: 0;
+            background-color: #3498db;
+        }
+        
+        .grow-1 {
+            flex-grow: 1;
+            background-color: #2ecc71;
+        }
+        
+        .grow-2 {
+            flex-grow: 2;
+            background-color: #e74c3c;
+        }
+        
+        .grow-3 {
+            flex-grow: 3;
+            background-color: #f39c12;
+        }
+        
+        .value-display {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .space-indicator {
+            height: 4px;
+            background-color: rgba(231, 76, 60, 0.3);
+            margin: 10px 0;
+            border-radius: 2px;
+            position: relative;
+        }
+        
+        .space-fill {
+            height: 100%;
+            background-color: #e74c3c;
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+        
+        .code {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 25px 0;
+            overflow-x: auto;
+            font-size: 1.1rem;
+        }
+        
+        .visual-demo {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 40px 0;
+        }
+        
+        .properties {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+        
+        .property {
+            flex: 1;
+            min-width: 280px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .property:hover {
+            transform: translateY(-5px);
+        }
+        
+        .property h3 {
+            color: #e74c3c;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .property i {
+            font-size: 1.5rem;
+        }
+        
+        .note {
+            background-color: #fff8e1;
+            padding: 25px;
+            border-left: 6px solid #ffc107;
+            margin: 40px 0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            color: #7f8c8d;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .interactive-demo {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-width: 120px;
+        }
+        
+        .control-group label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .control-group input {
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .info-box {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #3498db;
+        }
+        
+        .calculation {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #2ecc71;
+        }
+        
+        @media (max-width: 768px) {
+            .properties {
+                flex-direction: column;
+            }
+            
+            .property {
+                min-width: 100%;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Thuộc tính flex-grow trong Flexbox</h1>
+            <p>Xác định khả năng một item có thể phát triển để lấp đầy không gian thừa</p>
+        </header>
+        
+        <div class="intro">
+            <p>Thuộc tính <strong>flex-grow</strong> xác định tỷ lệ không gian thừa mà một flex item có thể chiếm so với các items khác trong container.</p>
+        </div>
+        
+        <div class="info-box">
+            <h3><i class="fas fa-info-circle"></i> Giá trị mặc định: 0</h3>
+            <p>Khi <code>flex-grow: 0</code>, item sẽ không phát triển để lấp đầy không gian thừa, giữ nguyên kích thước ban đầu của nó.</p>
+        </div>
+        
+        <div class="examples">
+            <div class="example">
+                <h2>flex-grow: 0 (Mặc định)</h2>
+                <p>Các items giữ nguyên kích thước ban đầu, không gian thừa không được phân phối.</p>
+                
+                <div class="flex-container">
+                    <div class="item grow-0">
+                        <div class="value-display">0</div>
+                        <div class="label">flex-grow</div>
+                    </div>
+                    <div class="item grow-0">
+                        <div class="value-display">0</div>
+                        <div class="label">flex-grow</div>
+                    </div>
+                    <div class="item grow-0">
+                        <div class="value-display">0</div>
+                        <div class="label">flex-grow</div>
+                    </div>
+                </div>
+                
+                <div class="code">
+                    .item {<br>
+                    &nbsp;&nbsp;flex-grow: 0; /* Mặc định */<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="example">
+                <h2>flex-grow: 1 (Tất cả bằng nhau)</h2>
+                <p>Tất cả items phát triển đồng đều để lấp đầy không gian thừa.</p>
+                
+                <div class="flex-container">
+                    <div class="item grow-1">
+                        <div class="value-display">1</div>
+                        <div class="label">flex-grow</div>
+                    </div>
+                    <div class="item grow-1">
+                        <div class="value-display">1</div>
+                        <div class="label">flex-grow</div>
+                    </div>
+                    <div class="item grow-1">
+                        <div class="value-display">1</div>
+                        <div class="label">flex-grow</div>
+                    </div>
+                </div>
+                
+                <div class="code">
+                    .item {<br>
+                    &nbsp;&nbsp;flex-grow: 1;<br>
+                    }
+                </div>
+            </div>
+            
+            <div class="example">
+                <h2>flex-grow: Tỷ lệ khác nhau (1, 2, 3)</h2>
+                <p>Items phát triển theo tỷ lệ khác nhau dựa trên giá trị flex-grow.</p>
+                
+                <div class="flex-container">
+                    <div class="item grow-1">
+                        <div class="value-display">1</div>
+                        <div class="label">flex-grow</div>
+                        <div class="space-indicator">
+                            <div class="space-fill" style="width: 16.66%"></div>
+                        </div>
+                    </div>
+                    <div class="item grow-2">
+                        <div class="value-display">2</div>
+                        <div class="label">flex-grow</div>
+                        <div class="space-indicator">
+                            <div class="space-fill" style="width: 33.33%"></div>
+                        </div>
+                    </div>
+                    <div class="item grow-3">
+                        <div class="value-display">3</div>
+                        <div class="label">flex-grow</div>
+                        <div class="space-indicator">
+                            <div class="space-fill" style="width: 50%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="code">
+                    .item-1 { flex-grow: 1; }<br>
+                    .item-2 { flex-grow: 2; }<br>
+                    .item-3 { flex-grow: 3; }
+                </div>
+                
+                <div class="calculation">
+                    <h4><i class="fas fa-calculator"></i> Cách tính không gian thừa:</h4>
+                    <p>Tổng flex-grow = 1 + 2 + 3 = 6</p>
+                    <p>Item 1 nhận: 1/6 = 16.66% không gian thừa</p>
+                    <p>Item 2 nhận: 2/6 = 33.33% không gian thừa</p>
+                    <p>Item 3 nhận: 3/6 = 50% không gian thừa</p>
+                </div>
+            </div>
+            
+            <div class="example">
+                <h2>Kết hợp flex-grow: 0 và flex-grow: 1</h2>
+                <p>Chỉ những items có flex-grow > 0 mới phát triển để lấp đầy không gian thừa.</p>
+                
+                <div class="flex-container">
+                    <div class="item grow-0">
+                        <div class="value-display">0</div>
+                        <div class="label">flex-grow</div>
+                    </div>
+                    <div class="item grow-1">
+                        <div class="value-display">1</div>
+                        <div class="label">flex-grow</div>
+                    </div>
+                    <div class="item grow-0">
+                        <div class="value-display">0</div>
+                        <div class="label">flex-grow</div>
+                    </div>
+                </div>
+                
+                <div class="code">
+                    .item-fixed { flex-grow: 0; }<br>
+                    .item-flexible { flex-grow: 1; }
+                </div>
+            </div>
+        </div>
+        
+        <div class="note">
+            <h3><i class="fas fa-lightbulb"></i> Cách thức hoạt động của flex-grow</h3>
+            <p>Thuộc tính <strong>flex-grow</strong> hoạt động theo các bước sau:</p>
+            <ol>
+                <li>Tính tổng không gian thừa trong container</li>
+                <li>Tính tổng các giá trị flex-grow của tất cả items</li>
+                <li>Chia không gian thừa theo tỷ lệ flex-grow</li>
+                <li>Phân phối không gian thừa cho các items</li>
+            </ol>
+            <p><strong>Công thức:</strong> Không gian item nhận được = (flex-grow của item / tổng flex-grow) × không gian thừa</p>
+        </div>
+        
+        <div class="visual-demo">
+            <h2>Ứng dụng thực tế</h2>
+            
+            <h3>Layout trang web với sidebar cố định và content linh hoạt</h3>
+            <div class="flex-container" style="height: 200px;">
+                <div class="item grow-0" style="min-width: 200px; background-color: #3498db;">
+                    <div class="value-display">0</div>
+                    <div class="label">Sidebar cố định</div>
+                </div>
+                <div class="item grow-1" style="background-color: #2ecc71;">
+                    <div class="value-display">1</div>
+                    <div class="label">Content linh hoạt</div>
+                </div>
+            </div>
+            
+            <h3>Dashboard với các panel tỷ lệ khác nhau</h3>
+            <div class="flex-container" style="height: 150px;">
+                <div class="item grow-1" style="background-color: #3498db;">
+                    <div class="value-display">1</div>
+                    <div class="label">Panel 1</div>
+                </div>
+                <div class="item grow-2" style="background-color: #2ecc71;">
+                    <div class="value-display">2</div>
+                    <div class="label">Panel chính</div>
+                </div>
+                <div class="item grow-1" style="background-color: #e74c3c;">
+                    <div class="value-display">1</div>
+                    <div class="label">Panel 3</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="properties">
+            <div class="property">
+                <h3><i class="fas fa-check-circle"></i> Ưu điểm</h3>
+                <ul>
+                    <li>Layout linh hoạt, responsive</li>
+                    <li>Dễ dàng kiểm soát tỷ lệ không gian</li>
+                    <li>Hoạt động tốt trên mọi kích thước màn hình</li>
+                    <li>Kết hợp tốt với các thuộc tính flexbox khác</li>
+                </ul>
+            </div>
+            
+            <div class="property">
+                <h3><i class="fas fa-exclamation-circle"></i> Lưu ý quan trọng</h3>
+                <ul>
+                    <li>Chỉ ảnh hưởng khi có không gian thừa</li>
+                    <li>Giá trị không thể âm</li>
+                    <li>Số thập phân được chấp nhận (0.5, 1.5, ...)</li>
+                    <li>Kết hợp với flex-basis để kiểm soát kích thước cơ sở</li>
+                </ul>
+            </div>
+            
+            <div class="property">
+                <h3><i class="fas fa-lightbulb"></i> Mẹo sử dụng</h3>
+                <ul>
+                    <li>Dùng flex-grow: 1 cho các thành phần cần lấp đầy không gian</li>
+                    <li>Dùng flex-grow: 0 cho các thành phần có kích thước cố định</li>
+                    <li>Tỷ lệ 2:1, 3:1 thường dùng cho các layout chính</li>
+                    <li>Kết hợp với media queries cho responsive design</li>
+                </ul>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 - Hướng dẫn Flexbox flex-grow </p>
+        </footer>
+    </div>
+
+    <script>
+        // Cập nhật indicators khi trang load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSpaceIndicators();
+        });
+        
+        function updateSpaceIndicators() {
+            const containers = document.querySelectorAll('.flex-container');
+            containers.forEach(container => {
+                const items = container.querySelectorAll('.item');
+                let totalGrow = 0;
+                
+                items.forEach(item => {
+                    const growValue = parseInt(item.className.match(/grow-(\d+)/)?.[1] || 0);
+                    totalGrow += growValue;
+                });
+                
+                if (totalGrow > 0) {
+                    items.forEach(item => {
+                        const growValue = parseInt(item.className.match(/grow-(\d+)/)?.[1] || 0);
+                        const percentage = (growValue / totalGrow) * 100;
+                        
+                        const indicator = item.querySelector('.space-fill');
+                        if (indicator) {
+                            indicator.style.width = percentage + '%';
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
