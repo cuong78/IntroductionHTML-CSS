@@ -1,7 +1,8 @@
 :root{
-    --while-color: #ffffff;
+    --white-color: #ffffff;
     --black-color: #000000;
     --text-color: #333333;
+    --primary-color: #EE4D2D;
 
 }
 
@@ -41,4 +42,4 @@ html {
        opacity: 1;
    }
 }
-    
+
